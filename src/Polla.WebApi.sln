@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polla.DAL", "Polla.DAL\Polla.DAL.csproj", "{1FDAFBE8-2606-4C51-A60F-0416B7B01223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polla.DAL.Test", "Polla.DAL.Test\Polla.DAL.Test.csproj", "{D1CD9E8F-BE6F-4FD0-B24B-16D24F90C945}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polla.Web", "Polla.Web\Polla.Web.csproj", "{AAA346A8-21FA-4B1B-B9DE-EBCE6B2FC45D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FDAFBE8-2606-4C51-A60F-0416B7B01223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDAFBE8-2606-4C51-A60F-0416B7B01223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDAFBE8-2606-4C51-A60F-0416B7B01223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDAFBE8-2606-4C51-A60F-0416B7B01223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1CD9E8F-BE6F-4FD0-B24B-16D24F90C945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1CD9E8F-BE6F-4FD0-B24B-16D24F90C945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1CD9E8F-BE6F-4FD0-B24B-16D24F90C945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1CD9E8F-BE6F-4FD0-B24B-16D24F90C945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA346A8-21FA-4B1B-B9DE-EBCE6B2FC45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA346A8-21FA-4B1B-B9DE-EBCE6B2FC45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA346A8-21FA-4B1B-B9DE-EBCE6B2FC45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA346A8-21FA-4B1B-B9DE-EBCE6B2FC45D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

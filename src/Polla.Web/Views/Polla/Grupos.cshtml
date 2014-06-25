@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Grupos";
+}
+
+<h2>Grupos</h2>
+
+<table id="jqgEquipos" style="width: 850px"></table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jqgEquipos').jqGrid({
+            //url from wich data should be requested
+            url: '@Url.Action("GetEquipos")',
+            //type of data
+            datatype: 'json',
+            //url access method type
+            mtype: 'POST',
+            //columns names
+            colNames: ['Equipo_ID', 'Grupo', 'Equipo', 'Ptos', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG'],
+            //columns model
+            colModel: [
+                        { name: 'Equipo_ID', index: 'Equipo_ID', align: 'left', hidden: true },
+                        { name: 'Grupo', index: 'Grupo', align: 'left', width: '55px' },
+                        { name: 'Equipo_desc', index: 'Equipo_desc', align: 'left', formatter: linkFormatter },
+                        { name: 'Ptos', index: 'Ptos', align: 'left', width: '35px' },
+                        { name: 'PJ', index: 'PJ', align: 'left', width: '25px' },
+                        { name: 'PG', index: 'PG', align: 'left', width: '25px' },
+                        { name: 'PE', index: 'PE', align: 'left', width: '25px' },
+                        { name: 'PP', index: 'PP', align: 'left', width: '25px' },
+                        { name: 'GF', index: 'GF', align: 'left', width: '25px' },
+                        { name: 'GC', index: 'GC', align: 'left', width: '25px' },
+                        { name: 'DG', index: 'DG', align: 'left', width: '25px' }
+            ],
+            //pager for grid
+            //pager: $('#jqgpPartidos'),
+            //number of rows per page
+            rowNum: 48,
+            //initial sorting column
+            //sortname: 'Ptos,DG',
+            //initial sorting direction
+            //sortorder: 'desc',
+            //we want to display total records count
+            viewrecords: true,
+            //we want to change the numbers of records in the grid
+            //rowList: [],
+            //grouping
+            grouping: true,
+            groupingView:
+                {
+                    groupField: ['Grupo'],
+                    groupColumnShow: [false],
+                    groupCollapse: false,
+                },
+            //grid height
+            height: '100%',
+            onCellSelect: function (rowid, iCol, cellcontent, e) {
+                var row = jQuery("#jqgEquipos").jqGrid('getRowData', rowid);
+                if (row !== null) {
+                    if (iCol == "2")
+                        RedirectView("Equipo", row.Equipo_ID);
+                }
+            }
+        });
+    });
+    function linkFormatter(cellvalue, options, rowObject) {
+        return "<span class='audit'>" + cellvalue + "</span>";
+    }
+    function RedirectView(view, value) {
+        window.location.href = "/polla/" + view + "?value=" + value;
+    }
+</script>

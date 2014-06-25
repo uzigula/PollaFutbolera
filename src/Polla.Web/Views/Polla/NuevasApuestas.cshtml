@@ -1,0 +1,101 @@
+﻿@model List<Polla.DAL.Models.PartidosView>
+
+@{
+    ViewBag.Title = "Nuevas Apuestas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ingrese sus Apuestas</h2>
+<table>
+    <tr>
+        <td>
+            <label>Local</label>
+        </td>
+        <td>
+            <label>Goles Local</label>
+        </td>
+        <td>
+            <label>Resultado</label>
+        </td>
+        <td>
+            <label>Goles Visita</label>
+        </td>
+        <td>
+            <label>Visita</label>
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: left">
+                <label>@item.EquipoDescLocal</label>
+            </td>
+            <td style="text-align: center">
+                <input type="text" id="txtEquLocalId_@item.PartidoId" class="InputText" onkeypress="return isNumberKey(event)" value="0" onkeyup="setResultado(@item.PartidoId)"/>
+            </td>
+            <td style="text-align: center">
+                <label id="txtResultado_@item.PartidoId" >E</label>
+            </td>
+            <td style="text-align: center">
+                <input type="text" id="txtEquVisitaId_@item.PartidoId" class="InputText" onkeypress="return isNumberKey(event)" value="0" onkeyup="setResultado(@item.PartidoId)"/>
+            </td>
+            <td style="text-align: left">
+                <label>@item.EquipoDescVisita</label>
+            </td>
+        </tr>
+    }
+</table>
+<input id="btnGrabarApuestas" type="button" onclick="confirmGrabar();" value="Grabar Apuestas" />
+
+
+<script>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function setResultado(id) {
+        if($('#txtEquLocalId_' + id).val()=="")
+            $('#txtEquLocalId_' + id).val(0);
+        if($('#txtEquVisitaId_' + id).val()=="")
+            $('#txtEquVisitaId_' + id).val(0);
+        var goles_local = parseInt($('#txtEquLocalId_' + id).val());
+        var goles_visita = parseInt($('#txtEquVisitaId_' + id).val());
+        //alert(goles_local);alert(goles_visita);
+        var resultado = (goles_local > goles_visita ? "L" : (goles_local == goles_visita ? "E" : "V"))
+        $('#txtResultado_' + id).text(resultado);
+    }
+
+    function confirmGrabar() {
+        var cnfirm = confirm('Esta seguro de grabar esta lista de apuestas');
+        if (cnfirm == true) {
+            var list = new Array();
+            for (var i = 49; i <= 56; i++) {
+                var goles_local = parseInt($('#txtEquLocalId_' + i).val());
+                var goles_visita = parseInt($('#txtEquVisitaId_' + i).val());
+                var resultado = (goles_local > goles_visita ? "L" : (goles_local == goles_visita ? "E" : "V"));
+                var Apuesta = { ApostadorId:@ViewBag.ApostadorId, PartidoId: i, Goles_Local: goles_local, Goles_Visita: goles_visita, Resultado: resultado };
+                list.push(Apuesta);
+            }
+            $.ajax({
+                url: "GrabarApuestas",
+                data: JSON.stringify(list),
+                type: "POST",
+                contentType: "application/json;charset=utf-8"
+            })
+            .success(function (data, status, headers, config) {
+                alert(data);
+                if (data == "Se grabaron las apuestas! SUERTE!")
+                    window.location.href = "/polla";
+            })
+            .error(function (data, status, headers, config) {
+                alert(data);
+            });
+        }
+    }
+
+</script>

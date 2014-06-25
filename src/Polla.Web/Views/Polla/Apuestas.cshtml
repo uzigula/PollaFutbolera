@@ -1,0 +1,175 @@
+﻿@model Polla.DAL.Models.PartidosView
+@{
+    ViewBag.Title = "Apuestas";
+}
+
+<h2>Apuestas</h2>
+<h2>@Model.EquipoDescLocal @Model.GolesLocal - @Model.GolesVisita @Model.EquipoDescVisita</h2>
+@if (@Model.Resultado == "-")
+{
+    <input type="button" value="Actualizar Resultado" onclick="showActualizarResultado(@Model.PartidoId);" />
+}
+else
+{
+    <label>Estado Finalizado</label>
+}
+<div id="dialogPartido" style="width: 200px;">
+    <table>
+        <tr>
+            <td>
+                <label>Local</label>
+            </td>
+            <td>
+                <label>Goles Local</label>
+            </td>
+            <td>
+                <label>Resultado</label>
+            </td>
+            <td>
+                <label>Goles Visita</label>
+            </td>
+            <td>
+                <label>Visita</label>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left">
+                <label>@Model.EquipoDescLocal</label>
+            </td>
+            <td style="text-align: center">
+                <input type="text" id="txtEquLocalId_@Model.PartidoId" class="InputText" onkeypress="return isNumberKey(event)" value="0" onkeyup="setResultado(@Model.PartidoId)"/>
+            </td>
+            <td style="text-align: center">
+                <label id="txtResultado_@Model.PartidoId" >E</label>
+            </td>
+            <td style="text-align: center">
+                <input type="text" id="txtEquVisitaId_@Model.PartidoId" class="InputText" onkeypress="return isNumberKey(event)" value="0" onkeyup="setResultado(@Model.PartidoId)"/>
+            </td>
+            <td style="text-align: left">
+                <label>@Model.EquipoDescVisita</label>
+            </td>
+        </tr>
+    </table>
+    <input type="button" value="Actualizar" onclick="Actualizar(@Model.PartidoId);" />
+
+</div>
+<table id="jqgApuestas"></table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var _PartidoId =@Model.PartidoId; 
+        $('#jqgApuestas').jqGrid({
+            //url from wich data should be requested
+            url: '@Url.Action("GetApuesta")',
+            //parameters
+            postData: { PartidoId: _PartidoId },
+            //type of data
+            datatype: 'json',
+            //url access method type
+            mtype: 'POST',
+            //columns names
+            colNames: ['Apuesta #', 'Apostador Cód.', 'Nombre', 'Ptos.','Eq. Local Id', 'Eq. Local', 'Goles Local',
+                       'Resultado', 'Goles Visita','Eq. Visita Id','Eq. Visita','Partido #'],
+            //columns model
+            colModel: [
+                        { name: 'apuesta_id', index: 'ApuestaId', align: 'left',hidden:true  },
+                        { name: 'apostador_id', index: 'ApostadorId', align: 'left',hidden:true },
+                        { name: 'nombre', index: 'Nombre', align: 'left' , formatter: linkFormatter },
+                        { name: 'puntaje', index: 'Puntaje', align: 'left', width: '45' },
+                        { name: 'Equipo_Id_local', index: 'Equipo_Id_local', align: 'left', width: '45',hidden:true},
+                        { name: 'equ_desc_loc', index: 'Equipo_desc_local', align: 'left', width: '100', formatter: linkFormatter },
+                        { name: 'goles_local', index: 'GolesLocal', align: 'left', width: '100' },
+                        { name: 'Resultado', index: 'Resultado', align: 'left', formatter: linkFormatter },
+                        { name: 'goles_visita', index: 'Golesvisita', align: 'left', width: '100' },
+                        { name: 'Equipo_Id_visita', index: 'Equipo_Id_visita', align: 'left', width: '45',hidden:true },
+                        { name: 'equ_desc_vis', index: 'Equipo_desc_visita', align: 'left', width: '100', formatter: linkFormatter },
+                        { name: 'partido_id', index: 'PartidoId', align: 'left',hidden:true}
+            ],
+            //pager for grid
+            //pager: $('#jqgpPartidos'),
+            //number of rows per page
+            rowNum: 48,
+            //initial sorting column
+            sortname: 'apuesta_id',
+            //initial sorting direction
+            sortorder: 'asc',
+            //we want to display total records count
+            viewrecords: true,
+            //we want to change the numbers of records in the grid
+            //rowList: [],
+            //grid height
+            height: '100%',
+            onCellSelect: function (rowid, iCol, cellcontent, e) {
+                var row = jQuery("#jqgApuestas").jqGrid('getRowData', rowid);
+                if (row !== null) {
+                    if (iCol == 7 ) {
+                        RedirectView("Apuestas", row.partido_id);
+                    }
+                    else if (iCol == 5 || iCol == 10) {
+                        if (iCol == 5)
+                            RedirectView("Equipo",row.Equipo_Id_local);
+                        else
+                            RedirectView("Equipo", row.Equipo_Id_visita);
+                    }
+                    else if(iCol==2){
+                        RedirectView("ApostadorView", row.apostador_id);
+                    }
+                }
+            }
+        });
+        jQuery("#dialogPartido").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 500,
+            open: function() {
+                jQuery('.ui-widget-overlay').bind('click', function() {
+                    jQuery('#dialogPartido').dialog('close');
+                });
+            }
+        });
+    });
+    function linkFormatter(cellvalue, options, rowObject) {
+        return "<span class='audit'>" + cellvalue + "</span>";
+    }
+    function RedirectView(view,value) {
+        window.location.href = "/polla/" + view + "?value=" + value;
+    }
+    function showActualizarResultado(id){
+        $('#txtEquLocalId_' + id).val(0);
+        $('#txtEquVisitaId_' + id).val(0);
+        $('#txtResultado_' + id).text("E");
+        $('#dialogPartido').dialog('open');
+    }   
+
+    function setResultado(id) {
+        if($('#txtEquLocalId_' + id).val()=="")
+            $('#txtEquLocalId_' + id).val(0);
+        if($('#txtEquVisitaId_' + id).val()=="")
+            $('#txtEquVisitaId_' + id).val(0);
+        var goles_local = parseInt($('#txtEquLocalId_' + id).val());
+        var goles_visita = parseInt($('#txtEquVisitaId_' + id).val());
+        var resultado = (goles_local > goles_visita ? "L" : (goles_local == goles_visita ? "E" : "V"));
+        $('#txtResultado_' + id).text(resultado);
+    }
+
+    function Actualizar(id){
+        var goles_local = parseInt($('#txtEquLocalId_' + id).val());
+        var goles_visita = parseInt($('#txtEquVisitaId_' + id).val());
+        var resultado = (goles_local > goles_visita ? "L" : (goles_local == goles_visita ? "E" : "V"));
+        var Partido = { Partido_ID: id, Goles_Local: goles_local, Goles_Visita: goles_visita, Resultado: resultado };
+            $.ajax({
+                url: "UpdatePartido",
+                data: JSON.stringify(Partido),
+                type: "POST",
+                contentType: "application/json;charset=utf-8"
+            })
+            .success(function (data, status, headers, config) {
+                alert(data);
+                if (data == "Se actualizo los datos del partido")
+                    window.location.href = "/polla";
+            })
+            .error(function (data, status, headers, config) {
+                alert(data);
+            });
+    }
+
+</script>

@@ -1,0 +1,62 @@
+﻿@model Polla.DAL.Models.Apostador
+
+@{
+    ViewBag.Title = "Apostador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registro de nuevo Apostador</h2>
+<div class="editor-label">
+    @Html.LabelFor(model => model.Nombre)
+</div>
+<div class="editor-field" id="txtNombre">
+    @Html.EditorFor(model => model.Nombre)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.DNI)
+</div>
+<div class="editor-field" id="txtDNI" onkeypress="return isNumberKey(event)">
+    @Html.EditorFor(model => model.DNI)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Correo)
+</div>
+<div class="editor-field" id="txtCorreo">
+    @Html.EditorFor(model => model.Correo)
+</div>
+
+<p>
+    <input type="submit" value="Create" class="cupid-blue" onclick="registrarApostador();" />
+</p>
+
+<script type="text/javascript">
+
+    function registrarApostador() {
+        var _nombre = $("#Nombre").val();
+        if (_nombre == "") { alert("Nombre es un Campo Obligatorio"); return; }
+        var _DNI = $("#DNI").val();
+        if (_DNI == "") { alert("DNI es un Campo Obligatorio"); return; }
+        if (_DNI.length != 8) { alert("DNI es un Campo de 8 digitos"); return; }
+        var _Correo = $("#Correo").val();
+        if (_Correo == "") { alert("Correo es un Campo Obligatorio"); return; }
+        var _apostador = { Nombre: _nombre, DNI: _DNI, Correo: _Correo }
+        
+        $.ajax({
+            url: "GrabarApostador",
+            data: JSON.stringify(_apostador),
+            type: "POST",
+            contentType: "application/json;charset=utf-8"
+        })
+        .success(function (data, status, headers, config) {
+            alert(data.substring(0, data.indexOf("-")));
+            if (data.substring(0, data.indexOf("-")) == "Se grabo un nuevo apostador")
+                window.location.href = "/polla/NuevasApuestas?value=" + data.substring(data.indexOf("-") + 1);
+        })
+        .error(function (data, status, headers, config) {
+            alert(data);
+        });
+    }
+
+</script>

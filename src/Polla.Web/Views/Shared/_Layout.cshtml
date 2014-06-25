@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jqGrid/jquery-ui-jqgrid.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.multiselect.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tmpl.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.locale-en-4.1.2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid-4.1.2.min.js")" type="text/javascript"></script>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">Polla Brasil 2014 - Belatrix</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Polla", "Index", "Polla")</li>
+                        <li>@Html.ActionLink("Registrate!", "Apostador", "Polla")</li>
+                        <li><a onclick="ActualizarOctavos();">Apuestas Octavos</a>  </li>
+                        <li>@Html.ActionLink("Puntajes", "Puntajes", "Polla")</li>
+                        <li>@Html.ActionLink("Actualización de Partidos", "PartidosUpdate", "Polla")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+
+        <div id="dialogUsuario" style="width: 250px;">
+            <table>
+                <tr>
+                    <td>
+                        <label>DNI</label>
+                    </td>
+                    <td>
+                        <input type="text" id="txtDNI" onkeypress="return isNumberKey(event)" style="width: 200px;" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="Ingresar" onclick="Ingresar();" />
+        </div>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqgrid")
+    @RenderSection("scripts", required: false)
+    <script src="@Url.Content("~/Scripts/jquery-1.5.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.multiselect.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tmpl.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.locale-en-4.1.2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid-4.1.2.min.js")" type="text/javascript"></script>
+    @RenderSection("JavaScript", false)
+
+    <script>
+        $(document).ready(function () {
+            jQuery("#dialogUsuario").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 350,
+                open: function () {
+                    jQuery('.ui-widget-overlay').bind('click', function () {
+                        jQuery('#dialogUsuario').dialog('close');
+                    });
+                }
+            });
+
+        });
+
+        function ActualizarOctavos() {
+            var cnfirm = confirm('Ya se encuentra registrado?');
+            if (cnfirm == true) {
+                $('#dialogUsuario').dialog('open');
+            } else {
+                
+            }
+        }
+
+        function Ingresar() {
+            var dni = $('#txtDNI').val(); 
+            if (dni == "") { alert("Nombre es un Campo Obligatorio"); return; }
+            var _url = (document.URL.toLowerCase().indexOf("polla") == -1 ? "Polla/" : "");
+            
+            $.ajax({
+                url: _url + "Ingresar",
+                data: { dni: parseInt(dni) },
+                type: "POST",
+                dataType: "json"
+            })
+            .success(function (data, status, headers, config) {
+                if (data.indexOf("-") == -1)
+                    alert(data);
+                else {
+                    alert(data.substring(0, data.indexOf("-")));
+                    window.location.href = _url+"NuevasApuestas?value=" + data.substring(data.indexOf("-") + 1);
+                }
+            })
+            .error(function (data, status, headers, config) {
+                alert(data);
+            });
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>

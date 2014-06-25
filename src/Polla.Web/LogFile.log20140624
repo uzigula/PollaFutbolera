@@ -1,0 +1,40 @@
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:12:46,215] [107] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:12:52,187] [81] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:16:08,261] [107] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:16:08,988] [123] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:17:00,011] [7] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:23:45,785] [8] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:25:25,492] [7] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:25:26,973] [7] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:27:55,746] [12] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:28:01,925] [13] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:34:23,090] [21] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:34:23,394] [21] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:35:30,303] [23] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:35:30,607] [21] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:46:18,819] [35] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:46:18,985] [30] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:46:28,391] [35] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:46:28,663] [30] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:34,895] [43] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:36,576] [47] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:45,230] [47] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:46,272] [45] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:54,145] [47] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:56:55,198] [47] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:57:28,459] [45] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:57:29,642] [47] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:57:50,060] [47] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 14:57:50,210] [43] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:04:09,964] [9] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:04:18,977] [8] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:05:50,134] [7] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:05:57,239] [8] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:07:09,717] [12] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:07:12,667] [12] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:08:55,875] [7] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:09:03,155] [8] [Polla.Web.Controllers.PollaController] - START  Partidos
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:10:40,107] [13] [Polla.Web.Utils.EmailMessage] - START - EmailMessage.Send
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:10:47,364] [13] [Polla.Web.Utils.EmailMessage] - FINISH - EmailMessage.Send
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:10:48,760] [16] [Polla.Web.Controllers.PollaController] - Index
+INFO  [CSCINFO\rrojasva] [2014-06-24 17:10:49,262] [12] [Polla.Web.Controllers.PollaController] - START  Partidos
